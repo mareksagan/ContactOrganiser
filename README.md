@@ -1,6 +1,6 @@
 # ContactsOrganiser
 
-SPA application used to manage the contacts. It implements a form, which allows you to save and validate the records (only validated and non-redundant records should be saved). It's possible to find a contact with the name (search field). The result has to be shown under the search field. After the contact is selected, the whole record will be shown (update/deletion possible).
+It implements a form, which allows you to save and validate the records (only validated and non-redundant records should be saved). It's possible to find a contact with the name (search field). The result has to be shown under the search field. After the contact is selected, the whole record will be shown (update/deletion possible).
 
 ## Requirements
 
