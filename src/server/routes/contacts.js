@@ -12,11 +12,15 @@ router.get('/getall', function(req, res, next) {
         
         var db = client.db('local');
         db.collection('contacts').find().toArray(function (err, result) {
-            if (err) throw err;
-
-            res.json(result);
-  })
-})
+            if (err) {
+                res.send(err);
+            } else if (result == null) {
+                res.send(400, 'No contacts found');
+            } else {
+                res.json(result);
+            }
+        });
+    });
 });
 
 router.get('/get/:contactId', function(req, res, next) {
@@ -30,12 +34,12 @@ router.get('/get/:contactId', function(req, res, next) {
             if (err) {
                 res.send(err);
             } else if (result == null) {
-                res.send(404);
+                res.send(400, 'No contact found');
             } else {
                 res.json(result);
             }
-  })
-})
+        })
+    })
 });
 
 router.delete('/delete/:contactId', function(req, res, next) {
@@ -44,16 +48,14 @@ router.delete('/delete/:contactId', function(req, res, next) {
         if (err) throw err;
         
         var db = client.db('local');
-        db.collection('contacts').remove({'_id': ObjectId(contactId)}, function (err, result) {
+        db.collection('contacts').deleteOne({'_id': ObjectId(contactId)}, function (err, result) {
             if (err) {
                 res.send(err);
-            } else if (result == null) {
-                res.send(404);
             } else {
-                res.json(result);
+                res.send(result);
             }
-  })
-})
+        })
+    })
 });
 
 router.put('/add', function(req, res, next) {
@@ -63,15 +65,13 @@ router.put('/add', function(req, res, next) {
         
         var db = client.db('local');
         db.collection('contacts').insertOne(body, function (err, result) {
-            if (err) {
-                res.send(err);
-            } else if (result == null) {
-                res.send(400);
-            } else {
-                res.json(result);
-            }
-  })
-})
+                if (err) {
+                    res.send(err);
+                } else {
+                    res.send(result);
+                }
+        });
+    })
 });
 
 router.post('/update', function(req, res, next) {
@@ -80,16 +80,12 @@ router.post('/update', function(req, res, next) {
         if (err) throw err;
         
         var db = client.db('local');
-        db.collection('contacts').updateOne(body, function (err, result) {
-            if (err) {
-                res.send(err);
-            } else if (result == null) {
-                res.send(400);
-            } else {
-                res.json(result);
-            }
-  })
-})
+        db.collection('contacts').updateOne(
+            {'_id': ObjectId(body._id)},
+            {$set: {'fname': body.fname, 'lname': body.lname, 'phone': body.phone, 'email': body.email}},
+            {upsert: false}
+        );
+    })
 });
 
 module.exports = router;
