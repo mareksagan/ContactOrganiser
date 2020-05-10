@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var createError = require('http-errors');
+const cors = require('cors');
 
 var contactsRouter = require('./routes/contacts');
 
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cors());
 
 app.use('/contacts', contactsRouter);
 
@@ -29,10 +32,10 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-res.json({
-  message: err.message,
-  error: err
-});
+  res.json({
+    message: err.message,
+    error: err
+  });
 });
 
 app.listen(3000, () => {

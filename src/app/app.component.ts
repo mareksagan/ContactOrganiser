@@ -1,4 +1,13 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+interface Client {
+  id: string;
+  fname: string;
+  lname: string;
+  phone: string;
+  email: string;
+}
 
 @Component({
   selector: 'app-root',
@@ -8,17 +17,24 @@ import { Component } from '@angular/core';
 
 export class AppComponent {
   title = 'ContactsOrganiser';
+  contacts = [];
+
+  constructor(private http: HttpClient) {
+    this.http.get<Array<Client>>('http://localhost:3000/contacts/getall').subscribe(data => {
+      this.contacts = data;
+    });
+  }
 
   settings = {
     columns: {
-      id: {
-        title: 'ID'
+      fname: {
+        title: 'First Name'
       },
-      name: {
-        title: 'Full Name'
+      lname: {
+        title: 'Last Name'
       },
-      username: {
-        title: 'User Name'
+      phone: {
+        title: 'Phone'
       },
       email: {
         title: 'Email'
@@ -26,27 +42,4 @@ export class AppComponent {
     }
   };
 
-  data = [
-    {
-      id: 1,
-      name: "Leanne Graham",
-      username: "Bret",
-      email: "Sincere@april.biz"
-    },
-    {
-      id: 2,
-      name: "Ervin Howell",
-      username: "Antonette",
-      email: "Shanna@melissa.tv"
-    },
-    
-    // ... list of items
-    
-    {
-      id: 11,
-      name: "Nicholas DuBuque",
-      username: "Nicholas.Stanton",
-      email: "Rey.Padberg@rosamond.biz"
-    }
-  ];
 }
