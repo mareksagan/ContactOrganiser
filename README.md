@@ -1,10 +1,22 @@
 # ContactsOrganiser
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.3.
+Contact management SPA (Angular 9, NodeJS, ExpressJS, MongoDB)
 
-## Development server
+## Description
+It implements a form, which allows you to save and validate the records (only validated and non-redundant records should be saved). It's possible to find a contact with the name (search field). The result has to be shown under the search field. After the contact is selected, the whole record will be shown (update/deletion possible).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Requirements
+
+* REST API which provides CRUD operations and a search API
+* All records should be persistent on server-side (MongoDB database)
+* Material Design
+
+## Installation
+
+* Set up [NodeJS](https://nodejs.org/en/download/) and [MongoDB](https://www.mongodb.com/download-center/community) on your machine (consider using a [Docker container](https://hub.docker.com/_/mongo))
+* Navigate to the project directory and execute `npm install`
+* Run `npm server` and `npm start` for a dev server
+* Navigate to [localhost:4200](http://localhost:4200/)
 
 ## Code scaffolding
 
