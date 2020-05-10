@@ -14,6 +14,7 @@ It implements a form, which allows you to save and validate the records (only va
 ## Installation
 
 * Set up [NodeJS](https://nodejs.org/en/download/) and [MongoDB](https://www.mongodb.com/download-center/community) on your machine (consider using a [Docker container](https://hub.docker.com/_/mongo))
+* Create a MongoDB collection under `local/contacts`
 * Navigate to the project directory and execute `npm install`
 * Run `npm server` and `npm start` for a dev server
 * Navigate to [localhost:4200](http://localhost:4200/)
