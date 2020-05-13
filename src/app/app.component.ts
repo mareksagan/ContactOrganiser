@@ -1,6 +1,6 @@
 import { Component, Sanitizer, SecurityContext } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { LocalDataSource } from 'ng2-smart-table';
 
 interface Client {
   _id: string;
@@ -18,9 +18,8 @@ interface Client {
 
 export class AppComponent {
   title = 'ContactsOrganiser';
-  contacts = [];
+  contacts;
   url = 'http://localhost:3000/contacts';
-  faPlus = faPlus;
   settings = {
     mode: 'inline',
     delete: {
@@ -54,7 +53,7 @@ export class AppComponent {
 
   constructor(private http: HttpClient, private sanitizer: Sanitizer) {
     this.http.get<Array<Client>>(this.url + '/getall').subscribe(data => {
-      this.contacts = data;
+      this.contacts = new LocalDataSource(data);
     });
   }
 
@@ -74,8 +73,6 @@ export class AppComponent {
   onEdit(event) {
     // Need to confirm update
     event.confirm.resolve();
-    console.log(event.newData);
     this.http.post<Client>(this.url + '/update', event.newData).subscribe();
   }
-
 }

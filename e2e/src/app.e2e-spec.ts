@@ -17,11 +17,20 @@ describe('workspace-project App', () => {
   });
 });
 
-describe('Enter GURU99 Name', () => {
-  it('should add a Name as GURU99', () => {
-  browser.get('https://angularjs.org');
-  element(by.model('yourName')).sendKeys('GURU99');
-  let guru = element(by.xpath('html/body/div[2]/div[1]/div[2]/div[2]/div/h1'));
-  expect(guru.getText()).toEqual('Hello GURU99!');
-   });
- });
+describe('Shows contacts table', () => {
+  let page: AppPage;
+
+  page = new AppPage();
+  it('should show the contacts table', () => {
+    let table = element(by.id('contactsTable'));
+    expect(table.isPresent()).toBeTrue();
+  });
+});
+
+describe('Enter page', () => {
+  it('should show the contacts table', () => {
+    browser.get('http://localhost:4200/');
+    let table = element(by.id('contactsTable'));
+    expect(table.isPresent()).toBeTrue();
+  });
+});
